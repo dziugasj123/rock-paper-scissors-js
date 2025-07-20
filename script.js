@@ -1,11 +1,16 @@
-function getComputerChoice(){
-    const cchoice = ['Rock', 'Paper', 'Scissors'];
-    return cchoice[Math.floor(Math.random() * cchoice.length)];
-}
+const list = document.querySelector(".list");
+const buttons = document.querySelectorAll('.selection');
 
-function getHumanChoice(){
-    let hchoice = prompt("Choose one: Rock, Paper, Scissors");
-    return hchoice;
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const selection = button.dataset.choice;
+        playGame(selection);
+    });
+});
+
+function getComputerChoice(){
+    const cChoice = ['Rock', 'Paper', 'Scissors'];
+    return cChoice[Math.floor(Math.random() * cChoice.length)];
 }
 
 const rules = {
@@ -14,44 +19,44 @@ const rules = {
     Scissors: "Paper"
 };
 
-function playGame(humanChoice, computerChoice){
-    let humanScore = 0;
-    let computerScore = 0;
-    
-    for (let i = 0; i < 5; i++){
-        humanChoice = getHumanChoice().toLowerCase();
-        humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1);
-        computerChoice = getComputerChoice();
+let humanScore = 0;
+let computerScore = 0;
 
-        console.log("------------ Game " + [i+1] + " ------------");
-        console.log("Your choice: " + humanChoice);
-        console.log("Computer's choice: " + computerChoice);
+function playGame(selection){
+    const computerSelection = getComputerChoice();
+    const humanSelection = selection;
 
-        if (humanChoice === computerChoice){
-            console.log("The round is tied!");
-            humanScore++;
-            computerScore++;
-        }
-        else if (rules[humanChoice] === computerChoice){
-            console.log("You've won the round!");
-            humanScore++;
-        }
-        else {
-            console.log("You've lost the round.");
-            computerScore++;
-        }
+    list.innerHTML = "";
+
+    const liElement = document.createElement("li");
+    const spanElement1 = document.createElement("span");
+    const spanElement2 = document.createElement("span");
+    const winDec1 = document.createElement("p");
+    const winDec2 = document.createElement("p");
+
+    liElement.append(spanElement1,spanElement2,winDec1,winDec2);
+
+    spanElement1.textContent = "Your choice: " + humanSelection + ", Computer's choice: " + computerSelection + " ";
+    if (humanSelection === computerSelection){
+        spanElement2.textContent = "The round is tied!";
     }
-    if (humanScore === computerScore){
-        console.log("---- Game ended in a tie! ----");
-    }
-    else if (humanScore > computerScore){
-        console.log("---- You've won the game! ----")
+    else if (rules[humanSelection] === computerSelection){
+        spanElement2.textContent = "You've won the round!";
+        humanScore++;
     }
     else {
-        console.log("---- You've lost the game. ----")
+        spanElement2.textContent = "You've lost the round.";
+        computerScore++;
     }
-    console.log("Game's results: ")
-    console.log("Your score: " + humanScore + ", Computer's score: " + computerScore);
-}
 
-playGame();
+    if (humanScore === 5) winDec1.textContent = "---- You've won the game! ----";
+    else if (computerScore === 5) winDec1.textContent = "---- You've lost the game. ----";
+
+    if (humanScore === 5 || computerScore === 5){
+        winDec2.textContent = "Your score: " + humanScore + ", Computer's score: " + computerScore;
+        humanScore = 0;
+        computerScore = 0;
+    }
+    
+    list.appendChild(liElement);
+}

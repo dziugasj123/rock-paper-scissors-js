@@ -4,8 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #75639C;
+        }
+        .container {
+            display: flex;
+            flex-direction: column; 
+            width: 40%;
+            height: 40%;
+            border: 5px solid black;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #636D9C;
+        }
+        div li{
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 3px solid black;
+            border-radius: 10px;
+            padding-top: 10px;
+            font-size: 20px;
+            background-color: #92639C;
+        }
+        .buttons{
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            width: 200px;
+            height: 50px;
+            border: 3px solid black;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            background-color: #92639C;
+        }
+        button:hover{
+            background-color:#a471af;
+        }
+        .h1{
+            display:flex;
+            justify-content: center;
+            align-items: center;   
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="h1">
+            <h1>Choose one to start the game!</h1>
+        </div>
+        <div class="buttons">
+            <button class="selection" data-choice="Rock">Rock</button>
+            <button class="selection" data-choice="Paper">Paper</button>
+            <button class="selection" data-choice="Scissors">Scissors</button>
+        </div>
+        <div class="list"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
